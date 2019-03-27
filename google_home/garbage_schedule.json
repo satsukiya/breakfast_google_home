@@ -1,15 +1,27 @@
 {
-	"adress" : [
-		{
-			"name" : "砂川市",
-			"lat" : 43.4973509,
-			"lng" : 141.9099978
-		},
-		{
-			"name" : "旭川市",
-			"lat" : 43.7499498,
-			"lng" : 142.1646851	
-		}
-	]
-	
+    "burnable" : {
+            "name" : "燃やせるごみ",
+            "week" : ["火","金"],
+            "week_span" : "every"
+    },
+    "raw" : {
+            "name" : "生ゴミ",
+            "week" : ["水","土"],
+            "week_span" : "every"
+    },
+    "non_burnable" : {
+            "name" : "燃やせないごみ",
+            "week" : ["月"],
+            "week_span" : [2,4]
+    },
+    "resource" : {
+            "name" : "資源ごみ",
+            "week" : ["月"],
+            "week_span" : [1,3]
+    },
+    "big" : {
+            "name" : "粗大ゴミ",
+            "week" : ["木"],
+            "week_span" : [4]
+    }
 }
