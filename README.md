@@ -2,5 +2,4 @@
 
 ###
 
-pip install pychromecast
-pip install gTTS
+pip install pychromecast gTTS
