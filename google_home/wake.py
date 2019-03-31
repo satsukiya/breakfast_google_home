@@ -1,7 +1,7 @@
 import pychromecast
 
 def main():
-	http_link = "http://localhost/wake_up.mp3"
+	http_link = "http://192.168.100.22/wake_up.mp3"
 	chromecasts = pychromecast.get_chromecasts()
 	google_home = chromecasts[0]
 
