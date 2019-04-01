@@ -3,7 +3,9 @@ import datetime
 import json
 import requests
 from bs4 import BeautifulSoup
-
+import random
+from pydub import AudioSegment
+import sys
 
 yobi = ["月","火","水","木","金","土","日"]
 
@@ -70,12 +72,44 @@ def build():
 	message += sunriseset_build(today)
 	return message
 
-def main():
-        tts = gTTS(text=build(), lang='ja')
-        file_name = 'wake_up.mp3'
-        parent_path = "/var/www/html/"
-        tts.save(parent_path + file_name)
+def pageToMarkSoup(url):
+	response = requests.get(url)
+	return BeautifulSoup(response.content, "html.parser")
+
+
+def article_link(url):
+	archive = pageToMarkSoup(url).find("div", class_="archive-post")
+	articles = archive.find_all("div", class_="post-item")
+	randindex = random.randint(0, len(articles) - 1)
+	return articles[randindex].a["href"]	
+
+def sports():
+	alink = article_link("https://www.tokyo-sports.co.jp/entame/")
+	aid = alink.split("/")[-2]
+	soup = pageToMarkSoup(alink)
+	title = soup.find("h1", class_="detail-ttl").text
+	article = ""
+	contents = soup.find("div", class_="detail-content").find_all("p")
+	for item in contents:
+		article += item.text
+
+	dst = "東京スポーツの記事を紹介します。\n\n\n"
+	dst += title + "\n\n\n" + article
+	return dst
+
+def makebot(src, filename="output.mp3", folder="/var/www/html/"):
+	tts = gTTS(text=src, lang='ja')
+	tts.save(folder + filename)
 
 if __name__ == '__main__':
-	main()
-	
+	args = sys.argv
+
+	if len(args) == 2:
+		if args[1] == "0":
+			makebot(build(), "wake_up.mp3")
+		elif args[1] == "1":
+			makebot(sports(), "article.mp3")
+		else :
+			print("not type")
+	else :
+		print("[usage] you should command a message type.")
