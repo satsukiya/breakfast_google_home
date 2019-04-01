@@ -1,7 +1,7 @@
 import pychromecast
+import sys
 
-def main():
-	http_link = "http://192.168.100.22/wake_up.mp3"
+def main(http_link):
 	chromecasts = pychromecast.get_chromecasts()
 	google_home = chromecasts[0]
 
@@ -11,5 +11,9 @@ def main():
 	mc.block_until_active()
 
 if __name__ == '__main__':
-	main()
+
+	if len(args) == 2:
+		main(args[1])
+	else :
+		print("[usage] you should command a link.")
 	
