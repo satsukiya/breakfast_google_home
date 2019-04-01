@@ -11,7 +11,7 @@ def main(http_link):
 	mc.block_until_active()
 
 if __name__ == '__main__':
-
+	args = sys.argv
 	if len(args) == 2:
 		main(args[1])
 	else :
