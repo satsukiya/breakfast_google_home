@@ -106,9 +106,9 @@ if __name__ == '__main__':
 
 	if len(args) == 2:
 		if args[1] == "0":
-			makebot(build(), "wake_up.mp3")
+			makebot(build(), filename="wake_up.mp3")
 		elif args[1] == "1":
-			makebot(sports(), "article.mp3")
+			makebot(sports(), filename="article.mp3")
 		else :
 			print("not type")
 	else :
