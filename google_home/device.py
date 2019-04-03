@@ -4,7 +4,6 @@ import json
 import requests
 from bs4 import BeautifulSoup
 import random
-from pydub import AudioSegment
 import sys
 
 yobi = ["月","火","水","木","金","土","日"]
@@ -61,7 +60,7 @@ def sunriseset_build(d):
 
 def toOlympic():
     now = datetime.datetime.now()
-    oly = dt(2020,7,24, 20, 0)
+    oly = datetime.datetime(2020,7,24, 20, 0)
     td = oly - now
     return td.days
 
