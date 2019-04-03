@@ -59,6 +59,15 @@ def sunriseset_build(d):
 		dst += "です。"
 	return dst
 
+def toOlympic():
+    now = datetime.datetime.now()
+    oly = dt(2020,7,24, 20, 0)
+    td = oly - now
+    return td.days
+
+def goto2020():
+	dst = "東京オリンピック・パラリンピックまであと"
+	dst +=  str(toOlympic) + "日です。"
 
 def build():
 	today = datetime.datetime.now()
@@ -70,6 +79,7 @@ def build():
 	message += whats_garbageday()
 	message += "です。"
 	message += sunriseset_build(today)
+	message += goto2020()
 	return message
 
 def pageToMarkSoup(url):
