@@ -67,6 +67,7 @@ def toOlympic():
 def goto2020():
 	dst = "東京オリンピック・パラリンピックまであと"
 	dst +=  str(toOlympic()) + "日です。"
+	return dst
 
 def build():
 	today = datetime.datetime.now()
