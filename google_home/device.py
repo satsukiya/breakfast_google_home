@@ -5,6 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 import random
 import sys
+import os
 
 yobi = ["月","火","水","木","金","土","日"]
 
@@ -18,9 +19,10 @@ def weektimes(src):
 def whats_garbageday():
 	today = datetime.datetime.now()
 	today_yobi = yobi[today.weekday()]
-
 	garbage_name = "何もない" + today_yobi + "曜日"
-	with open("garbage_schedule.json", "r") as fin:
+	schedule_path = os.path.abspath("./garbage_schedule.json")
+
+	with open(schedule_path, "r") as fin:
 		gdoc = json.load(fin)
 		for key in gdoc:
 			if  today_yobi in gdoc[key]["week"]:
@@ -42,7 +44,9 @@ def get_time_sun_rise_set(year, month, day, lat,lng):
 def sunriseset_build(d):
 	adress = None
 	dst = ""
-	with open("adress.json", "r") as fin:
+	adress_path = os.path.abspath("./adress.json")
+	print(adress_path)
+	with open(adress_path, "r") as fin:
 		gdoc = json.load(fin)
 		adress = gdoc["adress"][0]
 
