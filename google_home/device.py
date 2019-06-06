@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import random
 import sys
 import os
+from weather import Weather
 
 yobi = ["月","火","水","木","金","土","日"]
 
@@ -41,11 +42,24 @@ def get_time_sun_rise_set(year, month, day, lat,lng):
     return soup.sunrise_hm.text, soup.sunset_hm.text
 
 
+def weather_build():
+	adress_path = os.path.abspath("./adress.json")
+	dst = ""
+	with open(adress_path, "r") as fin:
+		geo = json.load(fin)
+		for city in geo["adress"]:
+			w = Weather(city["lat"], city["lng"])
+			forcast = "{0}の最高気温は{1}度,最低気温は{2}度,日中は{3}でしょう。"
+			dst += forcast.format(city["name"], 
+									w.max_temperature, 
+									w.min_temperature,
+									w.weather_at_time)
+	return dst
+
 def sunriseset_build(d):
 	adress = None
 	dst = ""
 	adress_path = os.path.abspath("./adress.json")
-	print(adress_path)
 	with open(adress_path, "r") as fin:
 		gdoc = json.load(fin)
 		adress = gdoc["adress"][0]
@@ -82,6 +96,7 @@ def build():
 	message += "ゴミ収集は"
 	message += whats_garbageday()
 	message += "です。"
+	message += weather_build()
 	message += sunriseset_build(today)
 	message += goto2020()
 	return message
@@ -120,7 +135,7 @@ if __name__ == '__main__':
 
 	if len(args) == 2:
 		if args[1] == "0":
-			makebot(build(), filename="wake_up.mp3")
+			makebot(build(), filename="wake_up.mp3", folder="./")
 		elif args[1] == "1":
 			makebot(sports(), filename="article.mp3")
 		else :
